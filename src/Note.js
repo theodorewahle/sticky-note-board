@@ -18,16 +18,16 @@ class Note extends Component {
 
 
     return (
-      <Draggable    >
+      <Draggable>
         <Card style={{ width: 300 }}>
           <CardHeader tag="h3">{title}</CardHeader>
           <CardBody>
             <If condition={editing}>
               <TextareaAutosize
-              onMouseDown={e => e.stopPropagation()}
+                onMouseDown={e => e.stopPropagation()}
                 style={{ width: '100%', borderRadius: 3 }}
                 value={text}
-                onChange={e => { onUpdate(id, { text: e.target.value })}}
+                onChange={(e) => { onUpdate(id, { text: e.target.value }); }}
               />
             </If>
             <If condition={!editing}>
@@ -38,10 +38,10 @@ class Note extends Component {
           <CardFooter>
             <Row>
               <If condition={!editing}>
-                <Button onClick={() => { this.setState({ editing: true })}}>Edit</Button>
+                <Button onClick={() => { this.setState({ editing: true }); }}>Edit</Button>
               </If>
               <If condition={editing}>
-                <Button onClick={() => { this.setState({ editing: false }); } }>
+                <Button onClick={() => { this.setState({ editing: false }); }}>
             Save
                 </Button>
               </If>
