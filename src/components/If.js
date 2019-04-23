@@ -1,7 +1,5 @@
-import React from 'react'
-
 function If({ condition, children }) {
-  return condition && children
+  return condition && children;
 }
 
-export default If
+export default If;

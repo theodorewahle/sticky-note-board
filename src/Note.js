@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Card, CardHeader, CardBody, CardText, CardFooter, Button, Row,
+  Card, CardHeader, CardBody, CardFooter, Button, Row,
 } from 'reactstrap';
+import marked from 'marked';
 import TextareaAutosize from 'react-textarea-autosize';
 import Draggable from 'react-draggable';
 import If from './components/If';
@@ -12,7 +13,9 @@ class Note extends Component {
   }
 
   render() {
-    const { id, onUpdate, note } = this.props;
+    const {
+      id, note, onUpdate, onNoteDelete, onDrag,
+    } = this.props;
     const { title, text } = note;
     const { editing } = this.state;
 
@@ -20,11 +23,10 @@ class Note extends Component {
       <Draggable
         handle=".handle"
         grid={[25, 25]}
-        defaultPosition={{ x: 20, y: 20 }}
-        position={{ x: note.x ? note.x : 20, y: note.y ? note.y : 20}}
-        onDrag={(e, data) => { this.props.handleDrag(e, data, id)}}
+        position={{ x: note.x, y: note.y }}
+        onDrag={(e, data) => { onDrag(e, data, id); }}
       >
-        <Card className="handle" style={{ width: 300 }}>
+        <Card className="handle" style={{ width: 300, position: 'absolute' }}>
           <CardHeader tag="h3">{title}</CardHeader>
           <CardBody>
             <If condition={editing}>
@@ -36,22 +38,20 @@ class Note extends Component {
               />
             </If>
             <If condition={!editing}>
-              <CardText>{text}</CardText>
+              <div className="noteBody" dangerouslySetInnerHTML={{ __html: marked(text || '') }} />
             </If>
           </CardBody>
-
           <CardFooter>
             <Row>
               <If condition={!editing}>
-                <Button onClick={() => { this.setState({ editing: true }); }}>Edit</Button>
+                <Button color="primary" onClick={() => { this.setState({ editing: true }); }}>Edit</Button>
               </If>
               <If condition={editing}>
-                <Button onClick={() => { this.setState({ editing: false }); }}>
+                <Button color="success" onClick={() => { this.setState({ editing: false }); }}>
             Save
                 </Button>
               </If>
-
-              <Button>Delete</Button>
+              <Button style={{ marginLeft: 4 }} color="danger" onClick={() => { onNoteDelete(id); }}>Delete</Button>
             </Row>
           </CardFooter>
         </Card>
