@@ -26,7 +26,7 @@ class Note extends Component {
         position={{ x: note.x, y: note.y }}
         onDrag={(e, data) => { onDrag(e, data, id); }}
       >
-        <Card className="handle" style={{ width: 300 }}>
+        <Card className="handle" style={{ width: 300, position: 'absolute' }}>
           <CardHeader tag="h3">
             <EditableTextField
               text={title}
