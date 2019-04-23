@@ -16,10 +16,15 @@ class Note extends Component {
     const { title, text } = note;
     const { editing } = this.state;
 
-
     return (
-      <Draggable>
-        <Card style={{ width: 300 }}>
+      <Draggable
+        handle=".handle"
+        grid={[25, 25]}
+        defaultPosition={{ x: 20, y: 20 }}
+        position={{ x: note.x ? note.x : 20, y: note.y ? note.y : 20}}
+        onDrag={(e, data) => { this.props.handleDrag(e, data, id)}}
+      >
+        <Card className="handle" style={{ width: 300 }}>
           <CardHeader tag="h3">{title}</CardHeader>
           <CardBody>
             <If condition={editing}>
