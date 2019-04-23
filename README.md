@@ -1,9 +1,13 @@
-# starterpack-theodorewahle
+# http://teddywahle-react-notes.surge.sh/
 
-I put together a starterpack that will allow me to have more compact code as a scale to large JavaScript applications. It uses:
+## Functionality 
 
-- webpack
-- sass
-- babel
-- eslint
-- node, npm, yarn
+You can add notes, delete notes, drag notes, and edit notes. The notes and their positions should persist in our database.
+
+## Design
+
+I chose a blue background with a simple single-line text entry bar for the titles. When you compose a note, it gets added at a random location. Then, you can drag it around. 
+
+## Implementation
+
+I used React + Firebase.
