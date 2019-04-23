@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Container, InputGroup, Input, InputGroupAddon, Button, Col
+  Container, InputGroup, Input, InputGroupAddon, Button, Col,
 } from 'reactstrap';
 import { Map } from 'immutable';
 import firebase from 'firebase';
-import Note from './Note';
+import Note from './components/Note';
 import * as db from './services/datastore';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    // Don't do this!
     this.state = {
       workingTitle: '',
       notes: Map(),
@@ -27,8 +26,6 @@ class App extends Component {
       messagingSenderId: '774801949525',
     };
     firebase.initializeApp(config);
-
-
     this.refreshNotes();
   }
 
@@ -36,6 +33,10 @@ class App extends Component {
     db.fetchNotes((notes) => {
       this.setState({ notes: Map(notes) });
     });
+  }
+
+  clearTitle = () => {
+    this.setState({ workingTitle: '' });
   }
 
   onUpdate = async (id, fields) => {
@@ -51,6 +52,7 @@ class App extends Component {
     const { workingTitle } = this.state;
     await db.createNote({ title: workingTitle, x: 500 * Math.random(), y: 500 * Math.random() });
     this.refreshNotes();
+    this.clearTitle();
   }
 
   onNoteDelete = async (id) => {
@@ -66,15 +68,15 @@ class App extends Component {
     const { notes } = this.state;
 
     return (
-      <Container style={{ height: '100vh', width: '100vh', alignItems: 'center' }}>
-        <Col style={{ maxWidth: '50vh', padding: 20, alignItems: 'center' }}>
-        <h1>Sticky Note Board</h1>
+      <Container className="app-container">
+        <Col className="app-column">
+          <h1>Sticky Note Board</h1>
           <InputGroup>
-          <Input placeholder="Note Title" value={this.state.workingTitle} onChange={this.updateTitle} />
-          <InputGroupAddon addonType="append">
-            <Button onClick={this.onNoteAdd}>Create</Button>
-          </InputGroupAddon>
-        </InputGroup>
+            <Input placeholder="Note Title" value={this.state.workingTitle} onChange={this.updateTitle} />
+            <InputGroupAddon addonType="append">
+              <Button onClick={this.onNoteAdd}>Create</Button>
+            </InputGroupAddon>
+          </InputGroup>
         </Col>
         {notes.entrySeq().map(([id, note]) => {
           return (

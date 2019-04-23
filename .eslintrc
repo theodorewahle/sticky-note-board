@@ -18,7 +18,6 @@
         "strict": 0,
         "quotes": [2, "single"],
         "no-else-return": 0,
-        "new-cap": ["error", {"capIsNewExceptions": ["Router"]}],
         "no-console": 0,
         "import/no-unresolved": [2, { "caseSensitive": false } ],
         "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
@@ -33,6 +32,7 @@
           "DebuggerStatement"
         ],
         "no-debugger": "warn",
+        "no-use-before-define": ["error", { "variables": false }],
         "react/jsx-uses-react": 2,
         "react/jsx-uses-vars": 2,
         "react/react-in-jsx-scope": 2,
