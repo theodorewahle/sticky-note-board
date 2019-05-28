@@ -10,4 +10,4 @@ I chose a blue background with a simple single-line text entry bar for the title
 
 ## Implementation
 
-I used React + Firebase.
+I used React and Firebase.
